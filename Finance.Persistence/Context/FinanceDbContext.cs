@@ -3,10 +3,13 @@ using Finance.Domain.Entities.Auth;
 using Finance.Domain.Entities.Common;
 using Finance.Domain.Entities.Companies;
 using Finance.Domain.Entities.Menus;
+using Finance.Domain.Entities.SignalR;
+using Finance.Persistence.Abstract.Service;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +19,7 @@ namespace Finance.Persistence.Context
     {
         public FinanceDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         {
-            
+           
         }
         #region Auth
         public DbSet<User> Users { get; set; }
@@ -32,6 +35,11 @@ namespace Finance.Persistence.Context
         #region Agreement
         public DbSet<Agreement> Agreements { get; set; }
         #endregion
+
+        #region SignalR
+        public DbSet<UserConnection> UserConnections { get; set; }
+        #endregion
+
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
