@@ -12,7 +12,10 @@ namespace Finance.Domain.Entities.Agreements
     {
         public string Title { get; set; }
         public string Content { get; set; }
+        public string CompanyId { get; set; }
         public Company Company { get; set; }
-        public decimal RiskValue { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public decimal? RiskValue { get; set; }
     }
 }
