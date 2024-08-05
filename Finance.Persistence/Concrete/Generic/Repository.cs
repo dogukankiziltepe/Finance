@@ -1,4 +1,4 @@
-﻿using Finance.Domain.Abstract.Generic;
+﻿using Finance.Persistence.Abstract.Generic;
 using Finance.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,7 +12,7 @@ namespace Finance.Persistence.Concrete.Generic
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        private readonly DbSet<TEntity> _dbSet;
+        public readonly DbSet<TEntity> _dbSet;
         private readonly FinanceDbContext _dbContext;
 
         public Repository(FinanceDbContext dbContext)
@@ -39,11 +39,14 @@ namespace Finance.Persistence.Concrete.Generic
         public async Task AddAsync(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(TEntity entity)
         {
             _dbSet.Update(entity);
+            await _dbContext.SaveChangesAsync();
+
         }
 
         public async Task DeleteAsync(object id)
@@ -51,11 +54,15 @@ namespace Finance.Persistence.Concrete.Generic
             TEntity entityToDelete = await _dbSet.FindAsync(id);
             if (entityToDelete != null)
                 _dbSet.Remove(entityToDelete);
+            await _dbContext.SaveChangesAsync();
+
         }
         public async Task DeleteRangeAsync(IEnumerable<TEntity> entities)
         {
             if (entities.Count() > 0)
                 _dbSet.RemoveRange(entities);
+            await _dbContext.SaveChangesAsync();
+
         }
 
 
