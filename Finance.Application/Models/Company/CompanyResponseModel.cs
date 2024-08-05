@@ -1,13 +1,12 @@
-﻿using Finance.Domain.Entities.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Finance.Domain.Entities.Companies
+namespace Finance.Application.Models.Company
 {
-    public class Company:BaseEntity
+    public class CompanyResponseModel
     {
         public string Name { get; set; }
         public string Sector { get; set; }
